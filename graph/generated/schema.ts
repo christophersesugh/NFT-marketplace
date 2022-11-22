@@ -11,6 +11,125 @@ import {
   BigDecimal
 } from "@graphprotocol/graph-ts";
 
+export class ActiveItem extends Entity {
+  constructor(id: Bytes) {
+    super();
+    this.set("id", Value.fromBytes(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save ActiveItem entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.BYTES,
+        `Entities of type ActiveItem must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("ActiveItem", id.toBytes().toHexString(), this);
+    }
+  }
+
+  static load(id: Bytes): ActiveItem | null {
+    return changetype<ActiveItem | null>(
+      store.get("ActiveItem", id.toHexString())
+    );
+  }
+
+  get id(): Bytes {
+    let value = this.get("id");
+    return value!.toBytes();
+  }
+
+  set id(value: Bytes) {
+    this.set("id", Value.fromBytes(value));
+  }
+
+  get buyer(): Bytes | null {
+    let value = this.get("buyer");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set buyer(value: Bytes | null) {
+    if (!value) {
+      this.unset("buyer");
+    } else {
+      this.set("buyer", Value.fromBytes(<Bytes>value));
+    }
+  }
+
+  get seller(): Bytes | null {
+    let value = this.get("seller");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set seller(value: Bytes | null) {
+    if (!value) {
+      this.unset("seller");
+    } else {
+      this.set("seller", Value.fromBytes(<Bytes>value));
+    }
+  }
+
+  get nftAddress(): Bytes | null {
+    let value = this.get("nftAddress");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set nftAddress(value: Bytes | null) {
+    if (!value) {
+      this.unset("nftAddress");
+    } else {
+      this.set("nftAddress", Value.fromBytes(<Bytes>value));
+    }
+  }
+
+  get tokenId(): BigInt | null {
+    let value = this.get("tokenId");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set tokenId(value: BigInt | null) {
+    if (!value) {
+      this.unset("tokenId");
+    } else {
+      this.set("tokenId", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get price(): BigInt | null {
+    let value = this.get("price");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set price(value: BigInt | null) {
+    if (!value) {
+      this.unset("price");
+    } else {
+      this.set("price", Value.fromBigInt(<BigInt>value));
+    }
+  }
+}
+
 export class ItemBought extends Entity {
   constructor(id: Bytes) {
     super();
