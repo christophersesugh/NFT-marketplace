@@ -14,7 +14,7 @@ module.exports = {
         goerli: {
             url: GOERLI_RPC_URL,
             accounts: [PRIVATE_KEY],
-            // gasPrice: 8000000000,
+            gasPrice: 8000000000,
             chainId: 5,
             blockConfirmations: 1
         },
@@ -23,8 +23,7 @@ module.exports = {
             accounts: [PRIVATE_KEY],
             gasPrice: 8000000000,
             chainId: 31337,
-            // blockConfirmations: 1,
-            blockGasLimit: 500000
+            blockConfirmations: 1
         }
     },
     etherscan: {
